@@ -4,14 +4,20 @@ import static com.raylib.Jaylib.*;
 import static com.raylib.Raylib.*;
 import java.awt.Color;
 
+import draw.DrawPlayer;
+import draw.DrawUi;
+import objects.Player;
+
 public class Main {
     public static void main(String args[]) {
-        InitWindow(500, 500, "Game");
+        InitWindow(800, 800, "Game");
         SetTargetFPS(30);
 
         Player player = new Player();
         player.x = 100;
         player.y = 100;
+
+
 
         while (!WindowShouldClose()) {
             if (IsKeyDown(KEY_UP)) {
@@ -28,15 +34,11 @@ public class Main {
             }
             BeginDrawing();
             ClearBackground(WHITE);
-            DrawRectangle(player.x, player.y, 100, 150,BLACK);
+            DrawPlayer.draw(player);
+            DrawUi.draw();
             EndDrawing();
         }
     }
-}
-class Player {
-    int x;
-    int y;
-    int[] velocity;
 }
 class Level {
     int gravity;

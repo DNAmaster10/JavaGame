@@ -1,0 +1,6 @@
+gravity: 1
+bgcolor: WHITE
+plcolor: BLACK
+
+
+1,rect,0,400,500,10,GRAY,0,true,false,0

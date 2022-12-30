@@ -1,0 +1,7 @@
+gravity: float //Gravity (Higher is stronger gravity)
+bgcolor: COLOUR //Background Colour (e.g. 'RED' or 'BLUE')
+plcolor: COLOUR //Player Colour (e.g. 'RED' or 'BLUE')
+
+
+Level objects (Defines platforms, trigger boxes, e.t.c), should be defined from line 6, with each line being a new object
+//id,rect,x-position,y-position,width,height,colour,transparency,collision-bool,trigger-action,bounce
