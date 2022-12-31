@@ -1,6 +1,6 @@
 gravity: 1
-bgcolor: WHITE
-plcolor: BLACK
+bgcolor: 255#255#255#255
+plcolor: 80#80#80#255
+plstart: 100,100
 
-
-1,rect,0,400,500,10,GRAY,0,true,false,0
+1,rect,0,400,500,10,230#41#55#255,0,true,false,0
