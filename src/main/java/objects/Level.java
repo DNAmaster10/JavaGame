@@ -20,8 +20,8 @@ public class Level {
     public static float gravity;
     public static List<Platform> platforms = new ArrayList<Platform>();
     private static HashMap<String, Integer> platformsIdMap = new HashMap<>();
-    public static void load(String levelName) {
 
+    public static void load(String levelName) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         InputStream is = classLoader.getResourceAsStream(levelName + ".txt");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
@@ -58,18 +58,31 @@ public class Level {
             Player.velocity[1] = 0f;
 
             reader.readLine();
-            reader.readLine();
-
             //Load level objects, such as platforms and triggers
-
             String[] objectArray;
-
+            int platformCount = 0;
             while (reader.ready()) {
                 String line = reader.readLine();
                 objectArray = line.split(",");
                 //Rectangle
                 if (objectArray[1].equals("platform")) {
+                    //Create platform object
+                    platforms.add(new Platform());
+                    platforms.get(platformCount).id = objectArray[0];
+                    platforms.get(platformCount).x = parseInt(objectArray[2]);
+                    platforms.get(platformCount).y = parseInt(objectArray[3]);
+                    platforms.get(platformCount).width = parseInt(objectArray[4]);
+                    platforms.get(platformCount).height = parseInt(objectArray[5]);
+                    String[] colourArray = objectArray[6].split("#");
+                    platforms.get(platformCount).color = new Jaylib.Color(parseInt(colourArray[0]),parseInt(colourArray[1]),parseInt(colourArray[2]),parseInt(colourArray[3]));
+                    platforms.get(platformCount).shouldCollide = Boolean.parseBoolean(objectArray[7]);
+                    platforms.get(platformCount).triggerAction = objectArray[8];
+                    platforms.get(platformCount).bounce = parseInt(objectArray[9]);
 
+                    //Add to hash map
+                    platformsIdMap.put(objectArray[0], platformCount);
+
+                    platformCount++;
                 }
 
             }
