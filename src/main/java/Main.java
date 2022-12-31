@@ -2,13 +2,17 @@ import com.raylib.Jaylib;
 
 import static com.raylib.Jaylib.*;
 import static com.raylib.Raylib.*;
-import java.awt.Color;
 
 import com.raylib.Raylib;
+import draw.DrawLevel;
 import draw.DrawPlayer;
 import draw.DrawUi;
+import objects.Platform;
 import objects.Player;
 import objects.Level;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String args[]) {
@@ -19,10 +23,13 @@ public class Main {
         player.x = 100;
         player.y = 100;
 
-
+        List<Platform> list = new ArrayList<Platform>();
+        list.add(new Platform());
+        list.add(new Platform());
+        list.get(0).bounce = 1;
+        list.get(1).bounce = 10;
 
         objects.Level.load("level-1");
-        Jaylib.Color test = new Jaylib.Color(150,10,20,255);
 
         while (!WindowShouldClose()) {
             if (IsKeyDown(KEY_UP)) {
@@ -38,7 +45,7 @@ public class Main {
                 player.x = player.x - 1;
             }
             BeginDrawing();
-            ClearBackground(test);
+            DrawLevel.draw();
             DrawPlayer.draw(player);
             DrawUi.draw();
             EndDrawing();
