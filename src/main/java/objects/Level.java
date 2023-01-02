@@ -20,6 +20,7 @@ public class Level {
     public static float gravity;
     public static List<Platform> platforms = new ArrayList<Platform>();
     private static HashMap<String, Integer> platformsIdMap = new HashMap<>();
+    public static List<int> collisionListPlatforms = new ArrayList<int>();
 
     public static void load(String levelName) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -57,7 +58,6 @@ public class Level {
             Player.velocity[0] = 0f;
             Player.velocity[1] = 0f;
 
-            reader.readLine();
             //Load level objects, such as platforms and triggers
             String[] objectArray;
             int platformCount = 0;
@@ -79,9 +79,11 @@ public class Level {
                     platforms.get(platformCount).triggerAction = objectArray[8];
                     platforms.get(platformCount).bounce = parseInt(objectArray[9]);
 
-                    //Add to hash map
+                    //Add to hash map and collision list
                     platformsIdMap.put(objectArray[0], platformCount);
-
+                    if (platforms.get(platformCount).shouldCollide) {
+                        collisionListPlatforms.add(platformCount);
+                    }
                     platformCount++;
                 }
 
