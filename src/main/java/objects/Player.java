@@ -9,7 +9,8 @@ public class Player {
     public static int height = 100;
     public static float[] velocity = new float[2];
     public static Jaylib.Color plColour;
-
+    public static boolean onGround = false;
+    public static boolean doGravity = true;
     public static void addVelocityY (float velocity) {
         Player.velocity[1] = Player.velocity[1] + velocity;
     }

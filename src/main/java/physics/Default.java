@@ -11,14 +11,33 @@ import java.util.concurrent.TimeUnit;
 public class Default {
     public static void calculate() {
         float frameDelta = Jaylib.GetFrameTime();
-
+        System.out.println("Pre physics vel: " + Player.velocity[1]);
         //Calculate player gravity
         float gravity = Level.gravity;
-        Player.addVelocityY((gravity * frameDelta));
+        Player.addVelocityY(gravity);
+
+        //Limit x speed
+        if (Level.limitX && Math.abs(Player.velocity[0]) > Level.xSpeedLimit) {
+            if (Player.velocity[0] > 0) {
+                Player.velocity[0] = Level.xSpeedLimit;
+            }
+            else {
+                Player.velocity[0] = -Level.xSpeedLimit;
+            }
+        }
+        //Limit y speed
+        if (Level.limitY && Math.abs(Player.velocity[1]) > Level.ySpeedLimit) {
+            if (Player.velocity[1] > 0) {
+                Player.velocity[1] = Level.ySpeedLimit;
+            }
+            else {
+                Player.velocity[1] = -Level.ySpeedLimit;
+            }
+        }
 
         //Set new player position based on velocity
-        Player.addX(Player.velocity[0]);
-        Player.addY(Player.velocity[1]);
+        Player.addX(Player.velocity[0] * frameDelta);
+        Player.addY(Player.velocity[1] * frameDelta);
 
         //Check collisions and move player and change velocity depending on collision
         //First, get a bool on whether the player is colliding with anything at all
@@ -26,16 +45,23 @@ public class Default {
         Jaylib.Rectangle playerRect = new Jaylib.Rectangle(Player.x, Player.y, Player.width, Player.height);
         List<Integer> collidingPlatforms = CheckCollision.checkPlatformCollision(playerRect);
         while (collidingPlatforms.get(0).equals(1)) {
-            System.out.println(collidingPlatforms);
+            playerRect = new Jaylib.Rectangle(Player.x, Player.y, Player.width, Player.height);
             Platform platform = Level.platforms.get(collidingPlatforms.get(1));
             Jaylib.Rectangle platformRect = new Jaylib.Rectangle(platform.x, platform.y, platform.width, platform.height);
             int collisionSide = GetCollision.rectangle(playerRect, platformRect);
-            System.out.println(collisionSide);
             if (collisionSide == 1) {
                 //Move player to top of platform
-                Player.setY(platform.y);
+                Player.setY(platform.y - Player.height);
                 //Calculate bounce effect
-                Player.setVelocityY((Player.velocity[1]) * ((platform.bounce / 100f) * -1f));
+                if (platform.bounce != 0) {
+                    System.out.println("Prebounce y vel: " + Player.velocity[1]);
+                    Player.setVelocityY((Player.velocity[1]) * ((platform.bounce / 100f) * -1f));
+                    System.out.println("Afterbounce y vel: " + Player.velocity[1]);
+                }
+                else {
+                    Player.setVelocityY(0);
+                    Player.onGround = true;
+                }
                 if (Player.velocity[1] < 0.01f) {
                     Player.setVelocityY(0f);
                 }
@@ -44,7 +70,6 @@ public class Default {
                 if (Player.velocity[0] < 0.01f) {
                     Player.setVelocityX(0f);
                 }
-                System.out.println("Colided with top");
             }
             else if (collisionSide == 2) {
                 //Move player to right of platform
@@ -75,12 +100,8 @@ public class Default {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("collision done");
             //After this calculation is done, check again that the player isn't colliding with any other shapes
             collidingPlatforms = CheckCollision.checkPlatformCollision(playerRect);
         }
-        //Finally, change the player's co-ords based on velocity
-        Player.addX(Player.velocity[0]);
-        Player.addY(Player.velocity[1]);
     }
 }

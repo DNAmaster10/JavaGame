@@ -4,8 +4,8 @@ import com.raylib.Jaylib;
 
 public class Platform {
     public String id;
-    public int x;
-    public int y;
+    public float x;
+    public float y;
     public int width;
     public int height;
     public Jaylib.Color color;

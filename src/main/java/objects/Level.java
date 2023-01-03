@@ -21,6 +21,10 @@ public class Level {
     public static List<Platform> platforms = new ArrayList<Platform>();
     private static HashMap<String, Integer> platformsIdMap = new HashMap<>();
     public static List<Integer> collisionListPlatforms = new ArrayList<Integer>();
+    public static float xSpeedLimit;
+    public static float ySpeedLimit;
+    public static boolean limitX;
+    public static boolean limitY;
 
     public static void load(String levelName) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -58,7 +62,29 @@ public class Level {
             Player.velocity[0] = 0f;
             Player.velocity[1] = 0f;
 
-            reader.readLine();
+            //Load x speed limit
+            String xSpeedLimit = reader.readLine();
+            String[] xSpeedLimitArray = xSpeedLimit.split(": ");
+            xSpeedLimit = xSpeedLimitArray[1];
+            if (xSpeedLimit.equals("0")) {
+                Level.limitX = false;
+            }
+            else {
+                Level.limitX = true;
+                Level.xSpeedLimit = parseFloat(xSpeedLimit);
+            }
+
+            //Load y speed limit
+            String ySpeedLimit = reader.readLine();
+            String[] ySpeedLimitArray = ySpeedLimit.split(": ");
+            ySpeedLimit = ySpeedLimitArray[1];
+            if (ySpeedLimit.equals("0")) {
+                Level.limitY = false;
+            }
+            else {
+                Level.limitY = true;
+                Level.ySpeedLimit = parseFloat(ySpeedLimit);
+            }
 
             //Load level objects, such as platforms and triggers
             String[] objectArray;

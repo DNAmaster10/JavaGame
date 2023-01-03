@@ -15,7 +15,7 @@ public class DrawLevel {
         //Draw platforms
         for (int i = 0; i < Level.platforms.size(); i++) {
             Platform currentPlatform = Level.platforms.get(i);
-            Jaylib.DrawRectangle(currentPlatform.x, currentPlatform.y, currentPlatform.width, currentPlatform.height, currentPlatform.color);
+            Jaylib.DrawRectangle(Math.round(currentPlatform.x), Math.round(currentPlatform.y), currentPlatform.width, currentPlatform.height, currentPlatform.color);
         }
     }
 }
