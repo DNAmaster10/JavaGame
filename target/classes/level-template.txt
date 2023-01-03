@@ -4,4 +4,4 @@ plcolor: COLOUR //Player Colour (e.g. 100#100#100#255)
 plstart: co-ords // Player starting position, e.g. 100,100
 
 Level objects (Defines platforms, trigger boxes, e.t.c), should be defined from line 6, with each line being a new object
-//id,type,x-position,y-position,width,height,COLOUR,collision-bool,trigger-action,bounce
+//id,type,x-position,y-position,width,height,COLOUR,collision-bool,trigger-action,bounce(0 - 100),friction(0 - 100)

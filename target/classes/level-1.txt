@@ -1,6 +1,6 @@
-gravity: 1
+gravity: 0.2
 bgcolor: 0#255#255#255
 plcolor: 80#80#80#255
-plstart: 100,100
+plstart: 100,250
 
-1,platform,0,400,500,10,0#41#255#255,true,false,0
+1,platform,0,400,500,10,0#41#255#255,true,false,0,100

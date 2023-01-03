@@ -12,4 +12,5 @@ public class Platform {
     public boolean shouldCollide;
     public String triggerAction;
     public int bounce;
+    public int friction;
 }

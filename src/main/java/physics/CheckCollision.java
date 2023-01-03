@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CheckCollision {
     public static List<Integer> checkPlatformCollision(Jaylib.Rectangle rectangle) {
-        //Checks which platforms the player is colliding with. The first item in the returned list is 1 or 0, whether the player is colliding with any rectangles. After that, all items are integers referring to the array location in platforms of the platforms which the player is colliding with.
+        //Checks which platforms the rectangle is colliding with. The first item in the returned list is 1 or 0, whether the rectangle is colliding with any rectangles. After that, all items are integers referring to the array location in platforms of the platforms which the rectangle is colliding with.
         List<Integer> collisionList = new ArrayList<Integer>();
         collisionList.add(0, 0);
         boolean collides = false;

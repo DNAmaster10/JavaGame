@@ -5,6 +5,8 @@ import com.raylib.Jaylib;
 public class Player {
     public static float x;
     public static float y;
+    public static int width = 100;
+    public static int height = 100;
     public static float[] velocity = new float[2];
     public static Jaylib.Color plColour;
 
